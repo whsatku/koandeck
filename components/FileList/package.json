@@ -1,0 +1,5 @@
+{
+	"name": "filelist",
+	"private": true,
+	"main": "view.js"
+}
