@@ -9,6 +9,7 @@
     "react": "^0.14.7",
     "react-native": "^0.22.2",
     "react-native-grid-view": "^0.3.7",
+    "react-native-nav": "^1.0.9",
     "react-native-orientation": "^1.14.0"
   }
 }

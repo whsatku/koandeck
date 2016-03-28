@@ -6,22 +6,28 @@ import React, {
 	View,
 	Image,
 	ScrollView,
-	TouchableHighlight
+	TouchableHighlight,
+	Dimensions
 } from 'react-native';
+import NavBar, { NavButton, NavTitle, NavGroup } from 'react-native-nav'
 import GridView from 'react-native-grid-view';
 import Unsplash from '../unsplash';
+import NavBarStyle from '../navbarstyle';
 
 var styles = StyleSheet.create({
 	container: {
 		flex: 1,
 	},
 	gallery: {
-		width: 200,
-		height: 200,
 		padding: 5,
 	},
 	search: {
 		elevation: 5,
+		height: 30,
+		width: 300,
+		backgroundColor: 'white',
+		borderRadius: 5,
+		padding: 5,
 	},
 	scroll: {
 		backgroundColor: '#424242',
@@ -42,20 +48,28 @@ export default class ImagePicker extends Component {
 		page: 1,
 	};
 	loading = false;
+	perRow = 3;
 
 	render(){
 		return (
 			<View style={styles.container}>
-				<TextInput
-					style={styles.search}
-					value={this.state.query}
-					onChangeText={this.onQueryChange}
-					onSubmitEditing={this.onSearch}
-					placeholder="Search Unsplash. Use comma to separate terms" />
+				<NavBar style={NavBarStyle}>
+					<NavButton onPress={this._onPreviousButton}><Image style={NavBarStyle.navIcon} source={require('../ic_navigate_before_white.png')} /></NavButton>
+					<TextInput
+						style={styles.search}
+						value={this.state.query}
+						onChangeText={this.onQueryChange}
+						onSubmitEditing={this.onSearch}
+						autoFocus={true}
+						autoCapitalize="none"
+						returnKeyType="search"
+						placeholder="Use comma to separate terms" />
+					<NavGroup />
+				</NavBar>
 				<GridView
 					style={styles.scroll}
 					items={this.state.images}
-					itemsPerRow={3}
+					itemsPerRow={this.perRow}
 					renderItem={this.renderItem}
 					onEndReached={this.state.end ? null : this.loadMore}
 					/>
@@ -64,11 +78,22 @@ export default class ImagePicker extends Component {
 	}
 
 	renderItem = (item) => {
+		let {width, height} = Dimensions.get('window');
+
+		// react native does not update dimensions!
+		if(height > width){
+			width = height;
+		}
+		
+		let imageWidth = width / this.perRow;
+
 		return (
 			<TouchableHighlight onPress={() => {this.onSelect(item)}} key={item.id} underlayColor={item.color}>
 				<Image 
 					style={[styles.gallery, {
-						backgroundColor: item.color
+						backgroundColor: item.color,
+						width: imageWidth,
+						height: imageWidth,
 					}]}
 					source={{uri: item.urls.small}}>
 					<Text style={styles.credit}>{item.user.name}</Text>
@@ -112,4 +137,8 @@ export default class ImagePicker extends Component {
 	onSelect(item){
 		console.log(item);
 	}
+
+	_onPreviousButton = () => {
+		this.props.navigator.pop();
+	};
 }

@@ -2,25 +2,21 @@ import React, {
 	Component,
 	View,
 	StyleSheet,
-	ToolbarAndroid,
 	StatusBar,
+	Platform,
+	Image
 } from 'react-native';
 import Orientation from 'react-native-orientation';
 import BackStack from '../BackStack';
 import SlideDeck from '../SlideDeck';
-
-var navBgColor = '#00aa00';
+import NavBar, { NavButton, NavTitle, NavGroup } from 'react-native-nav'
+import NavBarStyle from '../navbarstyle';
 
 var styles = StyleSheet.create({
 	root: {
 		flex: 1,
 		alignItems: 'stretch'
 	},
-	toolbar: {
-		height: 56,
-		backgroundColor: navBgColor,
-		elevation: 4
-	}
 });
 
 export default class Editor extends Component {
@@ -48,38 +44,25 @@ export default class Editor extends Component {
 	render(){
 		let toolbar = [];
 		if(!this.state.preview){
-			toolbar = [
-				<ToolbarAndroid
-					key="toolbar"
-					title={this.props.route.file}
-					titleColor="white"
-					actions={[{
-						title: 'Add slide',
-						show: 'always',
-						icon: require('./ic_add_box_white.png'),
-					}, {
-						title: 'Delete',
-						show: 'always',
-						icon: require('./ic_delete_white.png'),
-					}, {
-						title: 'Change background',
-						show: 'always',
-						icon: require('./ic_image_white.png'),
-					}, {
-						title: 'Preview',
-						show: 'always',
-						icon: require('./ic_play_arrow_white.png'),
-					}]}
-					style={styles.toolbar}
-					onActionSelected={this._onActionSelected} />,
-				<StatusBar key="statusbar" hidden={false} backgroundColor={navBgColor} animated={false} />
-			];
+			toolbar = (
+				<NavBar style={NavBarStyle}>
+					<NavButton onPress={this._onPreviousButton}><Image style={NavBarStyle.navIcon} source={require('../ic_navigate_before_white.png')} /></NavButton>
+					<NavTitle style={NavBarStyle.title}>{this.props.route.file}</NavTitle>
+					<NavGroup>
+						<NavButton style={NavBarStyle.navButton}><Image style={NavBarStyle.navIcon} source={require('./ic_add_box_white.png')} /></NavButton>
+						<NavButton style={NavBarStyle.navButton}><Image style={NavBarStyle.navIcon} source={require('./ic_delete_white.png')} /></NavButton>
+						<NavButton onPress={this._onImagePickerButton} style={NavBarStyle.navButton}><Image style={NavBarStyle.navIcon} source={require('./ic_image_white.png')} /></NavButton>
+						<NavButton onPress={this._onPreviewButton} style={NavBarStyle.navButton}><Image style={NavBarStyle.navIcon} source={require('./ic_play_arrow_white.png')} /></NavButton>
+					</NavGroup>
+				</NavBar>
+			);
 		}else{
-			toolbar = [<StatusBar key="statusbar" hidden={true} animated={false} />];
+			toolbar = null;
 		}
 		return (
 			<View style={styles.root}>
 				{toolbar}
+				<StatusBar hidden={this.state.preview} animated={false} />
 				<SlideDeck slides={[
 					{text1: 'Hello world!!', text2: 'This is example of koan deck'},
 					{text1: 'Slide 2', text2: 'Woah this is awesome'},
@@ -88,14 +71,15 @@ export default class Editor extends Component {
 		);
 	}
 
-	_onActionSelected = (pos) => {
-		switch(pos){
-		case 2:
-			this.props.navigator.push({name: 'ImagePicker', index: this.props.index + 1});
-			break;
-		case 3:
-			this.setState({preview: true});
-			break;
-		}
+	_onImagePickerButton = () => {
+		this.props.navigator.push({name: 'ImagePicker', index: this.props.index + 1});
+	};
+
+	_onPreviewButton = () => {
+		this.setState({preview: true});
+	};
+
+	_onPreviousButton = () => {
+		this.props.navigator.pop();
 	};
 }

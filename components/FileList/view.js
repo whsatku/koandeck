@@ -1,17 +1,18 @@
 import React, {
 	Component,
 	View,
-	ToolbarAndroid,
 	ListView,
 	Text,
 	StatusBar,
 	StyleSheet,
 	TouchableNativeFeedback,
-	RecyclerViewBackedScrollView
+	RecyclerViewBackedScrollView,
+	Image,
+	Platform
 } from 'react-native';
+import NavBar, { NavButton, NavTitle, NavGroup } from 'react-native-nav'
 import TouchableFeedback from '../TouchableFeedback';
-
-var navBgColor = '#00aa00';
+import NavBarStyle from '../navbarstyle';
 
 var styles = StyleSheet.create({
 	row: {
@@ -31,11 +32,6 @@ var styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'stretch'
 	},
-	toolbar: {
-		height: 56,
-		backgroundColor: navBgColor,
-		elevation: 4
-	}
 });
 
 export default class FileList extends Component {
@@ -57,16 +53,12 @@ export default class FileList extends Component {
 	render(){
 		return (
 			<View style={styles.root}>
-				<ToolbarAndroid
-					title="Koan Deck"
-					titleColor="white"
-					actions={[{
-						title: 'Add',
-						show: 'always',
-						icon: require('./ic_add_white.png'),
-					}]}
-					style={styles.toolbar} />
-				<StatusBar backgroundColor={navBgColor} />
+				<NavBar style={NavBarStyle}>
+					<NavTitle style={NavBarStyle.title}>Koan Deck</NavTitle>
+					<NavGroup>
+						<NavButton style={NavBarStyle.navButton}><Image style={NavBarStyle.navIcon} source={require('./ic_add_white.png')} /></NavButton>
+					</NavGroup>
+				</NavBar>
 				<ListView
 					pageSize={100}
 					dataSource={this.state.dataSource}
