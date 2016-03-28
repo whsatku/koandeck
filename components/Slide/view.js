@@ -36,7 +36,10 @@ var styles = StyleSheet.create({
 	},
 	presenting: {
 		backgroundColor: 'black'
-	}
+	},
+	textEdit: {
+		lineHeight: 1,
+	},
 });
 
 var aspectRatio = [37, 24];
@@ -47,8 +50,8 @@ export default class Slide extends Component {
 
 		if(this.props.editable){
 			text = [
-				<TextInput style={styles.text1} key="text1" value={this.props.slide.text1} />,
-				<TextInput style={styles.text2} key="text2" value={this.props.slide.text2} />
+				<TextInput style={[styles.text1, styles.textEdit]} key="text1" value={this.props.slide.text1} />,
+				<TextInput style={[styles.text2, styles.textEdit]} key="text2" value={this.props.slide.text2} />
 			];
 		}else{
 			text = [

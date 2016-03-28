@@ -6,7 +6,7 @@ This project from mobile software development class.
 
 ## Goals
 ### Project proposal stage
-- [ ] Slide layout
+- [x] Slide layout
   - [x] Centered
 - [ ] Multiplatform
   - [x] Android

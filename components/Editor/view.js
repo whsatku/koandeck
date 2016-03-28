@@ -62,7 +62,7 @@ export default class Editor extends Component {
 					}]}
 					style={styles.toolbar}
 					onActionSelected={this._onActionSelected} />,
-				<StatusBar key="statusbar" backgroundColor={navBgColor} animated={false} />
+				<StatusBar key="statusbar" hidden={false} backgroundColor={navBgColor} animated={false} />
 			];
 		}else{
 			toolbar = [<StatusBar key="statusbar" hidden={true} animated={false} />];
