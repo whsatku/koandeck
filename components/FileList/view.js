@@ -9,6 +9,7 @@ import React, {
 	TouchableNativeFeedback,
 	RecyclerViewBackedScrollView
 } from 'react-native';
+import TouchableFeedback from '../TouchableFeedback';
 
 var navBgColor = '#00aa00';
 
@@ -78,11 +79,11 @@ export default class FileList extends Component {
 
 	_renderRow = (rowData, sectionID, rowID) => {
 		return (
-			<TouchableNativeFeedback onPress={this._onRowPress(rowData)}>
+			<TouchableFeedback onPress={this._onRowPress(rowData)}>
 				<View style={styles.row}>
 					<Text style={styles.text}>{rowData}</Text>
 				</View>
-			</TouchableNativeFeedback>
+			</TouchableFeedback>
 		);
 	};
 
