@@ -16,11 +16,13 @@ var styles = StyleSheet.create({
 	text1: {
 		fontSize: 48,
 		textAlign: 'center',
+		backgroundColor: 'rgba(0,0,0,0)'
 	},
 	text2: {
 		fontSize: 24,
 		marginTop: 10,
 		textAlign: 'center',
+		backgroundColor: 'rgba(0,0,0,0)'
 	},
 	image: {
 		alignItems: 'center',
@@ -43,7 +45,8 @@ var styles = StyleSheet.create({
 	},
 });
 
-var aspectRatio = [37, 24];
+//var aspectRatio = [37, 24];
+var aspectRatio = [4, 3];
 
 export default class Slide extends Component {
 	render(){
