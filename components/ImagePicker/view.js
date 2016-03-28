@@ -22,7 +22,6 @@ var styles = StyleSheet.create({
 		padding: 5,
 	},
 	search: {
-		elevation: 5,
 		height: 30,
 		width: 300,
 		backgroundColor: 'white',

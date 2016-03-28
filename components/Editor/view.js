@@ -13,10 +13,6 @@ import NavBar, { NavButton, NavTitle, NavGroup } from 'react-native-nav'
 import NavBarStyle from '../navbarstyle';
 
 var styles = StyleSheet.create({
-	root: {
-		flex: 1,
-		alignItems: 'stretch'
-	},
 });
 
 export default class Editor extends Component {
@@ -60,7 +56,7 @@ export default class Editor extends Component {
 			toolbar = null;
 		}
 		return (
-			<View style={styles.root}>
+			<View style={{flex: 1}}>
 				{toolbar}
 				<StatusBar hidden={this.state.preview} animated={false} />
 				<SlideDeck slides={[
