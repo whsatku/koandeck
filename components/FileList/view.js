@@ -62,6 +62,7 @@ export default class FileList extends Component {
 					actions={[{
 						title: 'Add',
 						show: 'always',
+						icon: require('./ic_add_white.png'),
 					}]}
 					style={styles.toolbar} />
 				<StatusBar backgroundColor={navBgColor} />

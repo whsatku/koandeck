@@ -56,9 +56,19 @@ export default class Editor extends Component {
 					actions={[{
 						title: 'Add slide',
 						show: 'always',
+						icon: require('./ic_add_box_white.png'),
+					}, {
+						title: 'Delete',
+						show: 'always',
+						icon: require('./ic_delete_white.png'),
+					}, {
+						title: 'Change background',
+						show: 'always',
+						icon: require('./ic_image_white.png'),
 					}, {
 						title: 'Preview',
-						show: 'always'
+						show: 'always',
+						icon: require('./ic_play_arrow_white.png'),
 					}]}
 					style={styles.toolbar}
 					onActionSelected={this._onActionSelected} />,
@@ -80,9 +90,10 @@ export default class Editor extends Component {
 
 	_onActionSelected = (pos) => {
 		switch(pos){
-		case 0:
+		case 3:
+			// this.props.navigator.push({name: 'ImagePicker', index: this.props.index + 1, file: data});
 			break;
-		case 1:
+		case 4:
 			this.setState({preview: true});
 			break;
 		}
