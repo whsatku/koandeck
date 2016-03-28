@@ -25,30 +25,38 @@ export default class SlideDeck extends Component {
 	};
 
 	componentWillReceiveProps(props){
-		if(this.pager && props.noEnd != this.props.noEnd){
-			this.pager.setPage(0);
+		if(this.pager && props.presenting != this.props.presenting){
+			this.pager.setPageWithoutAnimation(0);
 		}
 	}
 
 	render(){
 		let slides = this.props.slides.map((item, index) => {
-			return <Slide 
-				width={this.state.width} height={this.state.height} 
-				editable={this.props.editable} presenting={this.props.presenting}
-				slide={item} key={index} />;
+			return (
+				<View key={index}>
+					<Slide 
+						width={this.state.width} height={this.state.height} 
+						editable={this.props.editable} presenting={this.props.presenting}
+						slide={item} />
+				</View>
+			);
 		});
 
 		let eop = null;
 
 		if(this.props.presenting){
-			eop = <Slide 
-				width={this.state.width} height={this.state.height}
-				editable={false} presenting={this.props.presenting}
-				slide={{
-					text2: 'End of presentation',
-					backgroundColor: 'black',
-					text2Color: 'white'
-				}} />;
+			eop = (
+				<View>
+					<Slide 
+					width={this.state.width} height={this.state.height}
+					editable={false} presenting={this.props.presenting}
+					slide={{
+						text2: 'End of presentation',
+						backgroundColor: 'black',
+						text2Color: 'white'
+					}} />
+				</View>
+			);
 		}
 
 		return (
@@ -56,6 +64,7 @@ export default class SlideDeck extends Component {
 				<ViewPagerAndroid
 					initialPage={0}
 					style={styles.slider}
+					keyboardDismissMode="on-drag"
 					ref={(pager) => this.pager = pager}>
 					{slides}
 					{eop}
