@@ -39,6 +39,7 @@ var styles = StyleSheet.create({
 	},
 	textEdit: {
 		lineHeight: 1,
+		padding: 0,
 	},
 });
 
@@ -50,8 +51,8 @@ export default class Slide extends Component {
 
 		if(this.props.editable){
 			text = [
-				<TextInput style={[styles.text1, styles.textEdit]} key="text1" value={this.props.slide.text1} />,
-				<TextInput style={[styles.text2, styles.textEdit]} key="text2" value={this.props.slide.text2} />
+				<TextInput style={[styles.text1, styles.textEdit]} key="text1" value={this.props.slide.text1} underlineColorAndroid="transparent" />,
+				<TextInput style={[styles.text2, styles.textEdit]} key="text2" value={this.props.slide.text2} underlineColorAndroid="transparent" />
 			];
 		}else{
 			text = [
