@@ -1,0 +1,5 @@
+{
+	"name": "imagepicker",
+	"private": true,
+	"main": "view.js"
+}

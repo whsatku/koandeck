@@ -7,11 +7,13 @@ import React, {
 import FileList from '../FileList';
 import BackStack from '../BackStack';
 import Editor from '../Editor';
+import ImagePicker from '../ImagePicker';
 
 export default class App extends Component {
 	static routes = {
 		FileList: FileList,
 		Editor: Editor,
+		ImagePicker: ImagePicker,
 	};
 
 	componentDidMount(){

@@ -90,10 +90,10 @@ export default class Editor extends Component {
 
 	_onActionSelected = (pos) => {
 		switch(pos){
-		case 3:
-			// this.props.navigator.push({name: 'ImagePicker', index: this.props.index + 1, file: data});
+		case 2:
+			this.props.navigator.push({name: 'ImagePicker', index: this.props.index + 1});
 			break;
-		case 4:
+		case 3:
 			this.setState({preview: true});
 			break;
 		}

@@ -11,13 +11,14 @@ This project from mobile software development class.
 - [ ] Multiplatform
   - [x] Android
   - [ ] iOS
-- [ ] Find background image
+- [x] Find background image
 
 ### Final presentation
 - [ ] Files CRUD
 - [ ] Slide layout
   - [ ] Corners
 - [ ] Change background image
+  - [ ] Show indicator when image is loading
 - [ ] Add slide
 - [ ] Slide editing
   - [ ] Mobile (small screen) UI for text input
