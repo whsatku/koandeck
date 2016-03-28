@@ -27,7 +27,7 @@ export default class SlideDeck extends Component {
 
 	componentWillReceiveProps(props){
 		if(this.pager && props.presenting != this.props.presenting){
-			this.pager.goToPage(0);
+			// this.pager.goToPage(0);
 		}
 	}
 
