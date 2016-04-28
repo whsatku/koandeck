@@ -1,0 +1,3 @@
+[submodule "components/react-native-page-swiper"]
+	path = components/react-native-page-swiper
+	url = git@github.com:fixt/react-native-page-swiper.git

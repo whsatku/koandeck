@@ -3,10 +3,11 @@ import React, {
 	StyleSheet,
 	Text,
 	View,
-	ViewPagerAndroid,
-	LayoutAnimation
+	LayoutAnimation,
+	Dimensions
 } from 'react-native';
 import Slide from '../Slide';
+import Swiper from '../react-native-page-swiper/src';
 
 var styles = StyleSheet.create({
 	deck: {
@@ -26,7 +27,7 @@ export default class SlideDeck extends Component {
 
 	componentWillReceiveProps(props){
 		if(this.pager && props.presenting != this.props.presenting){
-			this.pager.setPageWithoutAnimation(0);
+			// this.pager.goToPage(0);
 		}
 	}
 
@@ -42,11 +43,9 @@ export default class SlideDeck extends Component {
 			);
 		});
 
-		let eop = null;
-
 		if(this.props.presenting){
-			eop = (
-				<View>
+			slides.push((
+				<View key="eop">
 					<Slide 
 					width={this.state.width} height={this.state.height}
 					editable={false} presenting={this.props.presenting}
@@ -56,19 +55,24 @@ export default class SlideDeck extends Component {
 						text2Color: 'white'
 					}} />
 				</View>
-			);
+			));
+		}
+
+		let {width, height} = Dimensions.get('window');
+		if(height > width){
+			width = height;
 		}
 
 		return (
 			<View style={styles.deck} onLayout={this._onLayout}>
-				<ViewPagerAndroid
-					initialPage={0}
+				<Swiper
+					index={0}
+					pager={false}
 					style={styles.slider}
-					keyboardDismissMode="on-drag"
+					springFriction={10}
 					ref={(pager) => this.pager = pager}>
 					{slides}
-					{eop}
-				</ViewPagerAndroid>
+				</Swiper>
 			</View>
 		);
 	}

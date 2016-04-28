@@ -16,11 +16,18 @@ var styles = StyleSheet.create({
 	text1: {
 		fontSize: 48,
 		textAlign: 'center',
+		color: '#000000',
+		textShadowColor: '#000000',
+		textShadowOffset: {width: 0, height: 2},
+		textShadowRadius: 5,
+		backgroundColor: 'rgba(0,0,0,0)'
 	},
 	text2: {
 		fontSize: 24,
 		marginTop: 10,
 		textAlign: 'center',
+		color: '#000000',
+		backgroundColor: 'rgba(0,0,0,0)'
 	},
 	image: {
 		alignItems: 'center',
@@ -43,7 +50,8 @@ var styles = StyleSheet.create({
 	},
 });
 
-var aspectRatio = [37, 24];
+//var aspectRatio = [37, 24];
+var aspectRatio = [4, 3];
 
 export default class Slide extends Component {
 	render(){
@@ -51,8 +59,8 @@ export default class Slide extends Component {
 
 		if(this.props.editable){
 			text = [
-				<TextInput style={[styles.text1, styles.textEdit]} key="text1" value={this.props.slide.text1} underlineColorAndroid="transparent" />,
-				<TextInput style={[styles.text2, styles.textEdit]} key="text2" value={this.props.slide.text2} underlineColorAndroid="transparent" />
+				<TextInput style={[styles.text1, styles.textEdit, {color: this.props.slide.text1Color}]} key="text1" value={this.props.slide.text1} underlineColorAndroid="transparent" />,
+				<TextInput style={[styles.text2, styles.textEdit, {color: this.props.slide.text2Color}]} key="text2" value={this.props.slide.text2} underlineColorAndroid="transparent" />
 			];
 		}else{
 			text = [
@@ -69,26 +77,28 @@ export default class Slide extends Component {
 
 		let size = this.computeSize();
 
-		if(this.props.slide.backgroundColor){
-			return (
-				<View style={[
-					styles.image,
-					size,
-					{backgroundColor: this.props.slide.backgroundColor}
-				]}>
-					{text}
-				</View>
-			);
-		}else{
+		if(this.props.slide.image){
 			return (
 				<View style={[styles.outer, this.props.presenting && styles.presenting, {width: this.props.width, height: this.props.height}]}>
 					<View style={[styles.elevation, size]}>
 						<Image style={[
 							styles.image,
 							size
-						]} source={require('./bg.jpg')}>
+						]} source={this.props.slide.image}>
 							{text}
 						</Image>
+					</View>
+				</View>
+			);
+		}else{
+			return (
+				<View style={[styles.outer, this.props.presenting && styles.presenting, {width: this.props.width, height: this.props.height}]}>
+					<View style={[
+						styles.image,
+						size,
+						{backgroundColor: this.props.slide.backgroundColor || '#ffffff'}
+					]}>
+						{text}
 					</View>
 				</View>
 			);

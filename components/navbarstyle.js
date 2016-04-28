@@ -11,8 +11,8 @@ export default StyleSheet.create({
 		color: '#ffffff',
 	},
 	navIcon: {
-		width: Platform.OS == 'ios' ? 32 : 48,
-		height: Platform.OS == 'ios' ? 32 : 48,
+		width: 32,
+		height: 32,
 	},
 	navButton: {
 		paddingLeft: 5,
@@ -20,6 +20,5 @@ export default StyleSheet.create({
 	},
 	navBar: {
 		backgroundColor: '#00aa00',
-		elevation: 4,
 	},
 });
