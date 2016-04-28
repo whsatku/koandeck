@@ -2,10 +2,7 @@
 
 **Koan** (กลอน; Thai poem) **Deck** is a [Haiku Deck](https://www.haikudeck.com) clone written in React Native.
 
-This project from mobile software development class.
-
-## Note on react-native-page-swiper
-Remove .babelrc before building. The npm version is too old and does not offer `pager` property.
+This project is from mobile software development class.
 
 ## Goals
 ### Project proposal stage

@@ -7,7 +7,7 @@ import React, {
 	Dimensions
 } from 'react-native';
 import Slide from '../Slide';
-import Swiper from '../react-native-page-swiper/src';
+import Swiper from 'react-native-page-swiper';
 
 var styles = StyleSheet.create({
 	deck: {

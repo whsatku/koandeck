@@ -16,7 +16,7 @@ var styles = StyleSheet.create({
 	text1: {
 		fontSize: 48,
 		textAlign: 'center',
-		color: '#000000',
+		// color: '#000000',
 		textShadowColor: '#000000',
 		textShadowOffset: {width: 0, height: 2},
 		textShadowRadius: 5,
@@ -26,7 +26,7 @@ var styles = StyleSheet.create({
 		fontSize: 24,
 		marginTop: 10,
 		textAlign: 'center',
-		color: '#000000',
+		// color: '#000000',
 		backgroundColor: 'rgba(0,0,0,0)'
 	},
 	image: {
