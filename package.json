@@ -11,6 +11,7 @@
     "react-native-grid-view": "^0.3.7",
     "react-native-nav": "^1.0.9",
     "react-native-orientation": "^1.16.0",
-    "react-native-page-swiper": "^0.1.0"
+    "react-native-page-swiper": "^0.1.0",
+    "realm": "^0.11.1"
   }
 }

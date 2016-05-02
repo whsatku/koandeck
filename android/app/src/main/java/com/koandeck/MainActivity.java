@@ -3,6 +3,7 @@ package com.koandeck;
 import android.content.Intent;
 import android.content.res.Configuration;
 import com.facebook.react.ReactActivity;
+import io.realm.react.RealmReactPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.github.yamill.orientation.OrientationPackage;
@@ -38,6 +39,7 @@ public class MainActivity extends ReactActivity {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
+            new RealmReactPackage(),
         new OrientationPackage(this)
       );
     }
