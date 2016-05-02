@@ -1,7 +1,6 @@
 import React, {
 	Component,
 	View,
-	ListView,
 	Text,
 	StatusBar,
 	StyleSheet,
@@ -11,8 +10,12 @@ import React, {
 	Platform
 } from 'react-native';
 import NavBar, { NavButton, NavTitle, NavGroup } from 'react-native-nav'
+import { ListView } from 'realm/react-native';
+import Prompt from 'react-native-prompt';
+
 import TouchableFeedback from '../TouchableFeedback';
 import NavBarStyle from '../navbarstyle';
+import Realm from '../models';
 
 var styles = StyleSheet.create({
 	row: {
@@ -35,20 +38,28 @@ var styles = StyleSheet.create({
 });
 
 export default class FileList extends Component {
-	constructor(){
-		super();
+	state = {
+		addFile: false,
+	};
 
-		let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-		let rows = [];
-
-		for(let i = 1; i <= 100; i++){
-			rows.push(`File ${i}`);
-		}
-
-		this.state = {
-			dataSource: ds.cloneWithRows(rows),
-		};
+	componentWillMount(){
+		this.onRealmUpdate();
 	}
+
+	componentDidMount(){
+		Realm.addListener('change', this.onRealmUpdate);
+	}
+
+	componentWillUnmount(){
+		Realm.removeListener('change', this.onRealmUpdate);
+	}
+
+	onRealmUpdate = () => {
+		let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+		this.setState({
+			dataSource: ds.cloneWithRows(Realm.objects('Document'))
+		});
+	};
 
 	render(){
 		return (
@@ -56,7 +67,7 @@ export default class FileList extends Component {
 				<NavBar style={NavBarStyle}>
 					<NavTitle style={NavBarStyle.title}>Koan Deck</NavTitle>
 					<NavGroup>
-						<NavButton style={NavBarStyle.navButton}><Image style={NavBarStyle.navIcon} source={require('./ic_add_white.png')} /></NavButton>
+						<NavButton style={NavBarStyle.navButton} onPress={() => this.setState({addFile: true})}><Image style={NavBarStyle.navIcon} source={require('./ic_add_white.png')} /></NavButton>
 					</NavGroup>
 				</NavBar>
 				<ListView
@@ -65,6 +76,12 @@ export default class FileList extends Component {
 					renderRow={this._renderRow}
 					renderScrollComponent={(props) => <RecyclerViewBackedScrollView {...props} />}
 					renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />} />
+				<Prompt
+				 	title="File name"
+					placeholder="My awesome slides"
+					visible={this.state.addFile}
+					onCancel={() => this.setState({addFile: false})}
+					onSubmit={(value) => this.addSlide(value)}/>
 			</View>
 		);
 	}
@@ -73,7 +90,7 @@ export default class FileList extends Component {
 		return (
 			<TouchableFeedback onPress={this._onRowPress(rowData)}>
 				<View style={styles.row}>
-					<Text style={styles.text}>{rowData}</Text>
+					<Text style={styles.text}>{rowData.name}</Text>
 				</View>
 			</TouchableFeedback>
 		);
@@ -84,4 +101,33 @@ export default class FileList extends Component {
 			this.props.navigator.push({name: 'Editor', index: this.props.index + 1, file: data});
 		};
 	};
+
+	addSlide(name){
+		if(!name){
+			return;
+		}
+
+		Realm.write(() => {
+			let ids = Realm.objects('Document').sorted('id');
+			let lastId = -1;
+
+			if(ids.length > 0){
+				lastId = ids[ids.length-1].id;
+			}
+
+			Realm.create('Document', {
+				id: lastId + 1,
+				name: name,
+				slides: [{
+					text1: '',
+					text2: '',
+					image: '',
+				}],
+			});
+		});
+
+		this.setState({
+			addFile: false,
+		});
+	}
 }
