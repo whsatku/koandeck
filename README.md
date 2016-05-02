@@ -18,11 +18,8 @@ This project is from mobile software development class.
 - [ ] Slide layout
   - [ ] Corners
 - [ ] Change background image
-  - [ ] Show indicator when image is loading
-- [ ] Add slide
+- [x] Add slide
 - [ ] Slide editing
-  - [ ] Mobile (small screen) UI for text input
-- [ ] Firebase sync
 - [ ] Multiplatform
   - [x] Android
   - [ ] iOS

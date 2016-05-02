@@ -35,8 +35,8 @@ export default class SlideDeck extends Component {
 		let slides = this.props.slides.map((item, index) => {
 			return (
 				<View key={index}>
-					<Slide 
-						width={this.state.width} height={this.state.height} 
+					<Slide
+						width={this.state.width} height={this.state.height}
 						editable={this.props.editable} presenting={this.props.presenting}
 						slide={item} />
 				</View>
@@ -46,7 +46,7 @@ export default class SlideDeck extends Component {
 		if(this.props.presenting){
 			slides.push((
 				<View key="eop">
-					<Slide 
+					<Slide
 					width={this.state.width} height={this.state.height}
 					editable={false} presenting={this.props.presenting}
 					slide={{
@@ -70,6 +70,7 @@ export default class SlideDeck extends Component {
 					pager={false}
 					style={styles.slider}
 					springFriction={10}
+					onPageChange={this._onPageChange}
 					ref={(pager) => this.pager = pager}>
 					{slides}
 				</Swiper>
@@ -87,5 +88,11 @@ export default class SlideDeck extends Component {
 			width: width,
 			height: height,
 		});
+	};
+
+	_onPageChange = (number) => {
+		if(this.props.onPageChange){
+			this.props.onPageChange(number);
+		}
 	};
 }
