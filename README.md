@@ -17,9 +17,11 @@ This project is from mobile software development class.
 - [ ] Files CRUD
 - [ ] Slide layout
   - [ ] Corners
-- [ ] Change background image
 - [x] Add slide
-- [ ] Slide editing
+- [x] Slide editing
+- [ ] Change background image
+- [ ] Select background color
+- [ ] Select text color
 - [ ] Multiplatform
   - [x] Android
   - [ ] iOS

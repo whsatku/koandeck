@@ -7,6 +7,7 @@ import React, {
 	Image,
 	Dimensions,
 } from 'react-native';
+import Realm from '../models';
 
 var styles = StyleSheet.create({
 	slide: {
@@ -47,6 +48,7 @@ var styles = StyleSheet.create({
 	textEdit: {
 		lineHeight: 1,
 		padding: 0,
+		flex: 1,
 	},
 });
 
@@ -54,24 +56,38 @@ var styles = StyleSheet.create({
 var aspectRatio = [4, 3];
 
 export default class Slide extends Component {
+	componentWillMount(){
+		this.setState({
+			text1: this.props.slide.text1,
+			text2: this.props.slide.text2,
+		});
+	}
+
+	componentWillUnmount(){
+		Realm.write(() => {
+			this.props.slide.text1 = this.state.text1;
+			this.props.slide.text2 = this.state.text2;
+		});
+	}
+
 	render(){
 		let text = [];
 
 		if(this.props.editable){
 			text = [
-				<TextInput style={[styles.text1, styles.textEdit, {color: this.props.slide.text1Color}]} key="text1" value={this.props.slide.text1} underlineColorAndroid="transparent" />,
-				<TextInput style={[styles.text2, styles.textEdit, {color: this.props.slide.text2Color}]} key="text2" value={this.props.slide.text2} underlineColorAndroid="transparent" />
+				<TextInput style={[styles.text1, styles.textEdit, {color: this.props.slide.text1Color}]} key="text1" value={this.state.text1} underlineColorAndroid="transparent" onChangeText={(text) => this.setState({text1: text})} />,
+				<TextInput style={[styles.text2, styles.textEdit, {color: this.props.slide.text2Color}]} key="text2" value={this.state.text2} underlineColorAndroid="transparent" onChangeText={(text) => this.setState({text2: text})} />
 			];
 		}else{
 			text = [
 				<Text style={[
 					styles.text1,
 					{color: this.props.slide.text1Color}
-				]} key="text1">{this.props.slide.text1}</Text>,
+				]} key="text1">{this.state.text1}</Text>,
 				<Text style={[
 					styles.text2,
 					{color: this.props.slide.text2Color}
-				]} key="text2">{this.props.slide.text2}</Text>
+				]} key="text2">{this.state.text2}</Text>
 			];
 		}
 
