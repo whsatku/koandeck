@@ -23,11 +23,17 @@ export default class SlideDeck extends Component {
 	state = {
 		width: 0,
 		height: 0,
+		currentPage: 0,
 	};
 
 	componentWillReceiveProps(props){
-		if(this.pager && props.presenting != this.props.presenting){
-			// this.pager.goToPage(0);
+		if(
+			this.pager
+			&& props.presenting != this.props.presenting
+			&& this.props.presenting
+			&& this.state.currentPage == this.props.slides.length
+		){
+			this.pager.goToPage(this.props.slides.length - 1);
 		}
 	}
 
@@ -91,6 +97,9 @@ export default class SlideDeck extends Component {
 	};
 
 	_onPageChange = (number) => {
+		this.setState({
+			currentPage: number,
+		});
 		if(this.props.onPageChange){
 			this.props.onPageChange(number);
 		}
