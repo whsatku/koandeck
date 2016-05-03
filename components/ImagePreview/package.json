@@ -1,0 +1,5 @@
+{
+	"name": "imagepreview",
+	"private": true,
+	"main": "view.js"
+}

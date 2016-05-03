@@ -76,7 +76,10 @@ export default class Editor extends Component {
 	}
 
 	_onImagePickerButton = () => {
-		this.props.navigator.push({name: 'ImagePicker', index: this.props.index + 1});
+		this.props.navigator.push({
+			name: 'ImagePicker', index: this.props.index + 1,
+			callback: this._onImagePicked,
+		});
 	};
 
 	_onPreviewButton = () => {
@@ -116,6 +119,12 @@ export default class Editor extends Component {
 				this.slideDeck.pager.goToPage(Math.max(0, this.state.page - 1));
 				delete this.componentDidUpdate;
 			};
+		});
+	};
+
+	_onImagePicked = (url) => {
+		Realm.write(() => {
+			this.file.slides[this.state.page].image = url;
 		});
 	};
 }

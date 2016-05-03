@@ -83,12 +83,12 @@ export default class ImagePicker extends Component {
 		if(height > width){
 			width = height;
 		}
-		
+
 		let imageWidth = width / this.perRow;
 
 		return (
 			<TouchableHighlight onPress={() => {this.onSelect(item)}} key={item.id} underlayColor={item.color}>
-				<Image 
+				<Image
 					style={[styles.gallery, {
 						backgroundColor: item.color,
 						width: imageWidth,
@@ -134,7 +134,11 @@ export default class ImagePicker extends Component {
 	};
 
 	onSelect(item){
-		console.log(item);
+		this.props.navigator.push({
+			name: 'ImagePreview', index: this.props.index + 1,
+			image: item,
+			callback: this.props.route.callback,
+		});
 	}
 
 	_onPreviousButton = () => {

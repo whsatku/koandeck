@@ -19,7 +19,7 @@ This project is from mobile software development class.
   - [ ] Corners
 - [x] Add slide
 - [x] Slide editing
-- [ ] Change background image
+- [x] Change background image
 - [ ] Select background color
 - [ ] Select text color
 - [ ] Multiplatform

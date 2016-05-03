@@ -100,7 +100,7 @@ export default class Slide extends Component {
 						<Image style={[
 							styles.image,
 							size
-						]} source={this.props.slide.image}>
+						]} source={{uri: this.props.slide.image}}>
 							{text}
 						</Image>
 					</View>

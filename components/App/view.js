@@ -8,12 +8,14 @@ import FileList from '../FileList';
 import BackStack from '../BackStack';
 import Editor from '../Editor';
 import ImagePicker from '../ImagePicker';
+import ImagePreview from '../ImagePreview';
 
 export default class App extends Component {
 	static routes = {
 		FileList: FileList,
 		Editor: Editor,
 		ImagePicker: ImagePicker,
+		ImagePreview: ImagePreview,
 	};
 
 	componentDidMount(){
