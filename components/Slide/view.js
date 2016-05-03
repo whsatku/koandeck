@@ -60,6 +60,8 @@ export default class Slide extends Component {
 		this.setState({
 			text1: this.props.slide.text1,
 			text2: this.props.slide.text2,
+			original1: this.props.slide.text1,
+			original2: this.props.slide.text2,
 		});
 	}
 
@@ -68,6 +70,17 @@ export default class Slide extends Component {
 			this.props.slide.text1 = this.state.text1;
 			this.props.slide.text2 = this.state.text2;
 		});
+	}
+
+	componentWillReceiveProps(props){
+		if(props.slide.text1 != this.state.original1 || props.slide.text2 != this.state.original2){
+			this.setState({
+				text1: props.slide.text1,
+				text2: props.slide.text2,
+				original1: props.slide.text1,
+				original2: props.slide.text2,
+			});
+		}
 	}
 
 	render(){
