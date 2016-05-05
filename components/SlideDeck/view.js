@@ -12,7 +12,7 @@ import Swiper from 'react-native-page-swiper';
 var styles = StyleSheet.create({
 	deck: {
 		flex: 1,
-		justifyContent: 'center'
+		justifyContent: 'center',
 	},
 	slider: {
 		flex: 1,
@@ -70,7 +70,9 @@ export default class SlideDeck extends Component {
 		}
 
 		return (
-			<View style={styles.deck} onLayout={this._onLayout}>
+			<View style={[styles.deck, {
+				backgroundColor: this.props.presenting ? 'black' : '#cccccc',
+			}]} onLayout={this._onLayout}>
 				<Swiper
 					index={0}
 					pager={false}
