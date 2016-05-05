@@ -9,6 +9,7 @@ import BackStack from '../BackStack';
 import Editor from '../Editor';
 import ImagePicker from '../ImagePicker';
 import ImagePreview from '../ImagePreview';
+import Layout from '../Layout';
 
 export default class App extends Component {
 	static routes = {
@@ -16,6 +17,7 @@ export default class App extends Component {
 		Editor: Editor,
 		ImagePicker: ImagePicker,
 		ImagePreview: ImagePreview,
+		Layout: Layout,
 	};
 
 	componentDidMount(){

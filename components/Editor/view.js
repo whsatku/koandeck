@@ -57,6 +57,7 @@ export default class Editor extends Component {
 					<NavGroup>
 						<NavButton style={NavBarStyle.navButton} onPress={this._onAddButton}><Image style={NavBarStyle.navIcon} source={require('./ic_add_box_white.png')} /></NavButton>
 						<NavButton style={NavBarStyle.navButton} onPress={this._onDeleteButton}><Image style={NavBarStyle.navIcon} source={require('./ic_delete_white.png')} /></NavButton>
+						<NavButton style={NavBarStyle.navButton} onPress={this._onLayoutButton}><Image style={NavBarStyle.navIcon} source={require('./ic_featured_play_list_white.png')} /></NavButton>
 						<NavButton onPress={this._onImagePickerButton} style={NavBarStyle.navButton}><Image style={NavBarStyle.navIcon} source={require('./ic_image_white.png')} /></NavButton>
 						<NavButton onPress={this._onPreviewButton} style={NavBarStyle.navButton}><Image style={NavBarStyle.navIcon} source={require('./ic_play_arrow_white.png')} /></NavButton>
 					</NavGroup>
@@ -125,6 +126,13 @@ export default class Editor extends Component {
 	_onImagePicked = (url) => {
 		Realm.write(() => {
 			this.file.slides[this.state.page].image = url;
+		});
+	};
+
+	_onLayoutButton = () => {
+		this.props.navigator.push({
+			name: 'Layout', index: this.props.index + 1,
+			slide: this.file.slides[this.state.page],
 		});
 	};
 }
