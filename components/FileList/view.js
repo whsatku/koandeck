@@ -7,7 +7,8 @@ import React, {
 	TouchableNativeFeedback,
 	RecyclerViewBackedScrollView,
 	Image,
-	Platform
+	Platform,
+	Alert
 } from 'react-native';
 import NavBar, { NavButton, NavTitle, NavGroup } from 'react-native-nav'
 import { ListView } from 'realm/react-native';
@@ -88,7 +89,7 @@ export default class FileList extends Component {
 
 	_renderRow = (rowData, sectionID, rowID) => {
 		return (
-			<TouchableFeedback onPress={this._onRowPress(rowData)}>
+			<TouchableFeedback onPress={this._onRowPress(rowData)} onLongPress={this._onLongPress(rowData)}>
 				<View style={styles.row}>
 					<Text style={styles.text}>{rowData.name}</Text>
 				</View>
@@ -99,6 +100,23 @@ export default class FileList extends Component {
 	_onRowPress = (data) => {
 		return () => {
 			this.props.navigator.push({name: 'Editor', index: this.props.index + 1, file: data});
+		};
+	};
+
+	_onLongPress = (data) => {
+		return () => {
+			Alert.alert(
+				'Delete',
+				`Delete ${data.name}?\nThis action cannot be undone.`,
+				[
+					{text: 'Cancel', style: 'cancel'},
+					{text: 'OK', onPress: () => {
+						Realm.write(() => {
+							Realm.delete(data);
+						});
+					}},
+				]
+			);
 		};
 	};
 

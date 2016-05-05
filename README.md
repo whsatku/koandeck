@@ -14,7 +14,7 @@ This project is from mobile software development class.
 - [x] Find background image
 
 ### Final presentation
-- [ ] Files CRUD
+- [x] Files CRUD
 - [ ] Slide layout
   - [ ] Corners
 - [x] Add slide
