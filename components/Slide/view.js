@@ -16,26 +16,24 @@ var styles = StyleSheet.create({
 	},
 	text1: {
 		fontSize: 48,
-		textAlign: 'center',
 		// color: '#000000',
-		textShadowColor: '#000000',
-		textShadowOffset: {width: 0, height: 2},
-		textShadowRadius: 5,
+		// textShadowColor: '#000000',
+		// textShadowOffset: {width: 0, height: 2},
+		// textShadowRadius: 5,
 		backgroundColor: 'rgba(0,0,0,0)'
 	},
 	text2: {
 		fontSize: 24,
 		marginTop: 10,
-		textAlign: 'center',
 		// color: '#000000',
 		backgroundColor: 'rgba(0,0,0,0)'
 	},
 	image: {
-		alignItems: 'center',
-		justifyContent: 'center',
+		padding: 15,
 	},
 	outer: {
 		alignItems: 'center',
+		justifyContent: 'center',
 		backgroundColor: '#cccccc',
 	},
 	elevation: {
@@ -48,7 +46,6 @@ var styles = StyleSheet.create({
 	textEdit: {
 		lineHeight: 1,
 		padding: 0,
-		flex: 1,
 	},
 });
 
@@ -86,10 +83,32 @@ export default class Slide extends Component {
 	render(){
 		let text = [];
 
+		let textAlign = 'center';
+		let size = this.computeSize();
+
+		switch(this.props.slide.layout){
+			case 0: case 3: case 6: // left aligned
+				textAlign = 'left';
+				break;
+			case 2: case 5: case 8: // right aligned
+				textAlign = 'right';
+				break;
+			case 4: default: // center
+				break; // default
+		};
+
 		if(this.props.editable){
 			text = [
-				<TextInput style={[styles.text1, styles.textEdit, {color: this.props.slide.text1Color}]} key="text1" value={this.state.text1} underlineColorAndroid="transparent" onChangeText={(text) => this.setState({text1: text})} />,
-				<TextInput style={[styles.text2, styles.textEdit, {color: this.props.slide.text2Color}]} key="text2" value={this.state.text2} underlineColorAndroid="transparent" onChangeText={(text) => this.setState({text2: text})} />
+				<TextInput style={[styles.text1, styles.textEdit, {
+					color: this.props.slide.text1Color,
+					textAlign: textAlign,
+					width: size.width - 30,
+				}]} key="text1" value={this.state.text1} underlineColorAndroid="transparent" onChangeText={(text) => this.setState({text1: text})} />,
+				<TextInput style={[styles.text2, styles.textEdit, {
+					color: this.props.slide.text2Color,
+					textAlign: textAlign,
+					width: size.width - 30,
+				}]} key="text2" value={this.state.text2} underlineColorAndroid="transparent" onChangeText={(text) => this.setState({text2: text})} />
 			];
 		}else{
 			text = [
@@ -104,7 +123,32 @@ export default class Slide extends Component {
 			];
 		}
 
-		let size = this.computeSize();
+		let layout = {
+			alignItems: 'center',
+			justifyContent: 'center',
+		};
+
+		switch(this.props.slide.layout){
+			case 0: case 3: case 6: // left aligned
+				layout.alignItems = 'flex-start';
+				break;
+			case 2: case 5: case 8: // right aligned
+				layout.alignItems = 'flex-end';
+				break;
+			case 4: default: // center
+				break; // default
+		};
+
+		switch(this.props.slide.layout){
+			case 0: case 1: case 2:
+				layout.justifyContent = 'flex-start';
+				break;
+			case 6: case 7: case 8:
+				layout.justifyContent = 'flex-end';
+				break;
+			case 3: case 4: case 5: default: // center
+				break; // default
+		};
 
 		if(this.props.slide.image){
 			return (
@@ -112,6 +156,7 @@ export default class Slide extends Component {
 					<View style={[styles.elevation, size]}>
 						<Image style={[
 							styles.image,
+							layout,
 							size
 						]} source={{uri: this.props.slide.image}}>
 							{text}
@@ -124,6 +169,7 @@ export default class Slide extends Component {
 				<View style={[styles.outer, this.props.presenting && styles.presenting, {width: this.props.width, height: this.props.height}]}>
 					<View style={[
 						styles.image,
+						layout,
 						size,
 						{backgroundColor: this.props.slide.backgroundColor || '#ffffff'}
 					]}>
