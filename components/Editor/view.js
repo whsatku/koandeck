@@ -94,7 +94,7 @@ export default class Editor extends Component {
 	_onAddButton = () => {
 		Realm.write(() => {
 			this.file.slides.push({
-				text1: 'Enter title',
+				text1: '',
 				text2: '',
 				image: '',
 			});

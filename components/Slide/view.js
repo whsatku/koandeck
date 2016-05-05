@@ -102,13 +102,13 @@ export default class Slide extends Component {
 				<TextInput style={[styles.text1, styles.textEdit, {
 					color: this.props.slide.text1Color,
 					textAlign: textAlign,
-					height: 40,
-				}]} key="text1" value={this.state.text1} underlineColorAndroid="transparent" onChangeText={(text) => this.setState({text1: text})} />,
+					height: 60,
+				}]} key="text1" value={this.state.text1} underlineColorAndroid="transparent" onChangeText={(text) => this.setState({text1: text})} placeholder="Tap to enter title" />,
 				<TextInput style={[styles.text2, styles.textEdit, {
 					color: this.props.slide.text2Color,
 					textAlign: textAlign,
-					height: 40,
-				}]} key="text2" value={this.state.text2} underlineColorAndroid="transparent" onChangeText={(text) => this.setState({text2: text})} />
+					height: 60,
+				}]} key="text2" value={this.state.text2} underlineColorAndroid="transparent" onChangeText={(text) => this.setState({text2: text})} placeholder="Tap to enter subtitle" />
 			];
 		}else{
 			text = [

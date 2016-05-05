@@ -137,7 +137,7 @@ export default class FileList extends Component {
 				id: lastId + 1,
 				name: name,
 				slides: [{
-					text1: 'Enter title',
+					text1: '',
 					text2: '',
 					image: '',
 				}],
