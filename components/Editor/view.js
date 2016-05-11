@@ -5,7 +5,9 @@ import React, {
 	StatusBar,
 	Platform,
 	Image,
-	Alert
+	Alert,
+	PixelRatio,
+	PanResponder
 } from 'react-native';
 import Orientation from 'react-native-orientation';
 import BackStack from '../BackStack';
@@ -29,6 +31,39 @@ export default class Editor extends Component {
 		BackStack.addEventListener(this._onBack);
 		Realm.addListener('change', this._onRealmUpdate);
 		this.file = this.props.route.file;
+
+		this._panResponder = PanResponder.create({
+			onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
+				if(!this.state.preview || evt.nativeEvent.touches.length !== 2){
+					return false;
+				}
+
+				this.distanceStart = Math.sqrt(
+					Math.pow(evt.nativeEvent.touches[0].pageX - evt.nativeEvent.touches[1].pageX, 2)
+					+ Math.pow(evt.nativeEvent.touches[0].pageY - evt.nativeEvent.touches[1].pageY, 2)
+				);
+
+				return true;
+			},
+			onPanResponderMove: (evt, gestureState) => {
+				if(!this.state.preview || evt.nativeEvent.touches.length !== 2){
+					return;
+				}
+
+				let distance = Math.sqrt(
+					Math.pow(evt.nativeEvent.touches[0].pageX - evt.nativeEvent.touches[1].pageX, 2)
+					+ Math.pow(evt.nativeEvent.touches[0].pageY - evt.nativeEvent.touches[1].pageY, 2)
+				);
+				let moved = distance - this.distanceStart;
+
+				if(moved < -this.distanceStart/4){
+					this.setState({
+						preview: false,
+					});
+					return true;
+				}
+			},
+		});
 	}
 	componentWillUnmount(){
 		Orientation.unlockAllOrientations();
@@ -67,7 +102,7 @@ export default class Editor extends Component {
 			toolbar = null;
 		}
 		return (
-			<View style={{flex: 1}}>
+			<View style={{flex: 1}} {...this._panResponder.panHandlers}>
 				{toolbar}
 				<StatusBar hidden={this.state.preview} animated={false} />
 				<SlideDeck slides={this.file.slides} presenting={this.state.preview} editable={!this.state.preview} onPageChange={(no) => this.setState({page: no})}
