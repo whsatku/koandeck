@@ -4,24 +4,9 @@
 
 This project is from mobile software development class.
 
-## Goals
-### Project proposal stage
-- [x] Slide layout
-  - [x] Centered
-- [ ] Multiplatform
-  - [x] Android
-  - [ ] iOS
-- [x] Find background image
-
-### Final presentation
-- [x] Files CRUD
-- [ ] Slide layout
-  - [ ] Corners
-- [x] Add slide
-- [x] Slide editing
-- [x] Change background image
-- [ ] Select background color
-- [ ] Select text color
-- [ ] Multiplatform
-  - [x] Android
-  - [ ] iOS
+## Features
+- Multiple files
+- 9 slide layouts
+- 4:3 slide format (fits with iPad screen)
+- iOS and Android support
+- Background image search with [Unsplash](https://unsplash.com)
